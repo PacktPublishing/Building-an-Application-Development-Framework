@@ -1,0 +1,87 @@
+[project]
+name = "adf"
+version = "0.1.0"
+description = "Sample agentic framework"
+readme = "README.md"
+authors = [
+    { name = "Roman Voronin", email = "voroninr@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.15.0",
+    "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
+    "ruff>=0.11.5",
+]
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+    "tests"
+]
+
+line-length = 120
+indent-width = 4
+
+[tool.ruff.lint]
+select = ["RUF","PERF", "AIR", "NPY", "FLY", "TRY", "PL", "PD", "TD", "PTH", "INT", "TCH", "TID", "SLOT", "SIM", "INP", "PIE", "PYI", "PT", "RSE", "RET", "Q", "SLF", "LOG", "G", "ICN", "ISC", "FA", "EXE", "F", "E", "W", "I", "S", "A", "C4", "DJ", "EM", "T20", "C90", "N", "D", "UP", "YTT", "ANN", "ASYNC", "BLE", "B", "COM", "DTZ", "T10"]
+ignore = ["COM812", "D212", "D401", "D205", "D203",  "D100", "D106", "D102", "D105", "D104",  ]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+
+
+[tool.mypy]
+ignore_missing_imports = true
+explicit_package_bases = true
+
+
+[tool.pytest.ini_options]
+addopts = "--cov=adf --cov-report=term-missing"
+testpaths = ["tests"]

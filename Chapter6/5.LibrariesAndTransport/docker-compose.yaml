@@ -1,0 +1,18 @@
+services:
+  opensearch:
+    image: opensearchproject/opensearch:1.2.2
+    container_name: opensearch
+    environment:
+      - DISABLE_SECURITY_PLUGIN=true
+      - discovery.type=single-node
+      - http.port=9200
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
