@@ -10,7 +10,7 @@ from adf.messages import SystemMessage, UserMessage, Message, AssistantMessage
 app = Application(name="poetic")
 app.settings.openai_api_key = os.environ.get("OPENAI_API_KEY", "")
 
-class GPT4oMiniAgent(Agent):
+class GPT4oMiniAgent:
     client = OpenAI(api_key=app.settings.openai_api_key)
     system_prompt: SystemMessage
 

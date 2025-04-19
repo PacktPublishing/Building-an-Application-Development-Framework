@@ -2,6 +2,7 @@ from types import SimpleNamespace
 
 from .messages import Message, AssistantMessage
 from adf.routers import Role, RoleRouter
+from adf.vectorstore import SimpleVectorStore, VectorStore
 
 
 class Application:
@@ -10,13 +11,15 @@ class Application:
     - a name (e.g. "poetic")
     - a RoleRouter for dispatching conversations to agents
     - a decorator-based registration mechanism to easily register new roles/agents.
+    - a vector store for document retrieval and similarity search
     """
 
     settings = SimpleNamespace()
 
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, vector_store: VectorStore = None) -> None:
         self.name = name
         self.router = RoleRouter()
+        self.vector_store = vector_store or SimpleVectorStore()
 
     def register(self, role: str):
         """
@@ -51,3 +54,15 @@ class Application:
         to the router and return the AssistantMessage result.
         """
         return self.router.navigate(role, conversation)
+
+    def index_documents(self, documents: list[str]) -> None:
+        """
+        Add documents to the vector store.
+        """
+        self.vector_store.index(documents)
+
+    def search_documents(self, query: str, k: int = 5) -> list[str]:
+        """
+        Search for similar documents in the vector store.
+        """
+        return self.vector_store.search(query, k)
