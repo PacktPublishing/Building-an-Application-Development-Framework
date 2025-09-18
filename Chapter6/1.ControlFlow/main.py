@@ -15,7 +15,7 @@ from openai import OpenAI
 # Core Entities: Message Types
 # ======================
 
-
+@dataclass(frozen=True)
 class Message(abc.ABC):
     """
     Abstract base class for all message types.
